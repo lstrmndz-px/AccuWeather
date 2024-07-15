@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
-    const apiKey = "L5281iKxuN9BvDUuGUdbsQInuVP3QUFr"; 
+    const apiKey = "L5281iKxuN9BvDUuGUdbsQInuVP3QUFr";
     const form = document.getElementById("cityForm");
     const weatherDiv = document.getElementById("weather");
 
@@ -18,8 +18,8 @@ document.addEventListener("DOMContentLoaded", function() {
                 if (data && data.length > 0) {
                     const locationKey = data[0].Key;
                     fetchWeatherData(locationKey);
-                    fetch5dayForecast(locationKey); 
-                    fetchHourlyForeCast(locationKey); 
+                    fetch5dayForecast(locationKey);
+                    fetchHourlyForeCast(locationKey);
                 } else {
                     weatherDiv.innerHTML = `<p>City not found.</p>`;
                 }
@@ -47,10 +47,10 @@ document.addEventListener("DOMContentLoaded", function() {
                 weatherDiv.innerHTML = `<p>Error fetching weather data.</p>`;
             });
     }
-    
+
     function fetch5dayForecast(locationKey) {
         const url = `http://dataservice.accuweather.com/forecasts/v1/daily/5day/${locationKey}?apikey=${apiKey}`;
-      
+
         fetch(url)
             .then(response => response.json())
             .then(data => {
@@ -67,7 +67,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
     function fetchHourlyForeCast(locationKey) {
         const url = `http://dataservice.accuweather.com/forecasts/v1/hourly/12hour/${locationKey}?apikey=${apiKey}&metric=true`;
-      
+
         fetch(url)
             .then(response => response.json())
             .then(data => {
@@ -82,7 +82,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 weatherDiv.innerHTML = `<p>Error fetching forecast data.</p>`;
             });
     }
-      
+
     function displayWeather(data) {
         const temperature = data.Temperature.Metric.Value;
         const weather = data.WeatherText;
@@ -93,7 +93,7 @@ document.addEventListener("DOMContentLoaded", function() {
         `;
         weatherDiv.innerHTML = weatherContent;
     }
-    
+
     function display5dayForecast(forecast) {
         let forecastContent = `
             <h2>5 Day Forecast</h2>
@@ -104,7 +104,7 @@ document.addEventListener("DOMContentLoaded", function() {
             const minimumTemp = day.Temperature.Minimum.Value;
             const maximumTemp = day.Temperature.Maximum.Value;
             const weather = day.Day.IconPhrase;
-            
+
             forecastContent += `
                 <div>
                     <h3>${dayOfWeek}</h3>
@@ -128,6 +128,6 @@ document.addEventListener("DOMContentLoaded", function() {
        });
        weatherDiv.innerHTML += forecastContent;
     }
-    
-    
+
+
 });
